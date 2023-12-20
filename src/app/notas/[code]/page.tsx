@@ -76,11 +76,6 @@ export default async function Notas({ params }: { params: { code: string } }) {
           </tr>
         </tbody>
       </table>
-      <form method="GET" action={`/notas/${code}/descargar`}>
-        <button className="print:hidden mt-8 p-4 rounded-xl bg-rose-600 text-white hover:bg-rose-800 transition-all">
-          Descargar
-        </button>
-      </form>
     </main>
   );
 }
