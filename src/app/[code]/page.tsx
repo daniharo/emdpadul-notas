@@ -20,10 +20,6 @@ export default async function Notas({ params }: { params: { code: string } }) {
     [key: string]: string;
   };
 
-  const showINS2 = Object.keys(row).some(
-    (key) => key.startsWith("INS2") && row[key],
-  );
-
   if (!row) {
     return (
       <main className="flex flex-col items-center justify-between p-24 gap-8">
@@ -37,6 +33,10 @@ export default async function Notas({ params }: { params: { code: string } }) {
       </main>
     );
   }
+
+  const showINS2 = Object.keys(row).some(
+    (key) => key.startsWith("INS2") && row[key],
+  );
 
   return (
     <main className="flex flex-col items-center justify-between max-w-lg mx-auto px-4 mt-10 mb-4 m-auto">
