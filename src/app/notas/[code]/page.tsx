@@ -51,7 +51,7 @@ export default async function Notas({ params }: { params: { code: string } }) {
   if (!showINS2) keyBlacklist.push("INS2");
 
   return (
-    <main className="flex flex-col items-center justify-between max-w-lg mx-auto px-4 mt-10 mb-4 m-auto">
+    <main className="flex flex-col items-center justify-between max-w-lg mx-auto px-4 mt-10 mb-8 m-auto">
       <table className="border">
         <tbody>
           {Object.keys(row)
@@ -76,6 +76,11 @@ export default async function Notas({ params }: { params: { code: string } }) {
           </tr>
         </tbody>
       </table>
+      <form method="GET" action={`/notas/${code}/descargar`}>
+        <button className="print:hidden mt-8 p-4 rounded-xl bg-rose-600 text-white hover:bg-rose-800 transition-all">
+          Descargar
+        </button>
+      </form>
     </main>
   );
 }

@@ -28,6 +28,7 @@ export default function RootLayout({
               alt="EMDPadul"
               width={200}
               height={200}
+              className="print:invert"
             />
           </Link>
         </header>
