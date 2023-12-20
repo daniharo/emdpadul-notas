@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { redirect } from "next/navigation";
 
 export default function Home() {
@@ -8,7 +7,7 @@ export default function Home() {
     redirect(`/${code}`);
   }
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex-1 flex-col items-center justify-between p-24">
       <form
         className="flex flex-col items-center justify-center"
         action={goToNotas}
