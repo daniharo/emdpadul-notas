@@ -1,8 +1,9 @@
 import { parse } from "papaparse";
 import Link from "next/link";
 
-function showKey(key: string) {
-  if (key === "password") return false;
+function showKey(key: string, showINS2: boolean) {
+  if (key.startsWith("INS2") && !showINS2) return false;
+  if (["password", "Observaciones"].includes(key)) return false;
   return !key.includes("TRI");
 }
 
@@ -19,6 +20,10 @@ export default async function Notas({ params }: { params: { code: string } }) {
     [key: string]: string;
   };
 
+  const showINS2 = Object.keys(row).some(
+    (key) => key.startsWith("INS2") && row[key],
+  );
+
   if (!row) {
     return (
       <main className="flex flex-col items-center justify-between p-24 gap-8">
@@ -34,17 +39,27 @@ export default async function Notas({ params }: { params: { code: string } }) {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between max-w-lg mx-4 mt-10 mb-4 m-auto">
       <table className="border">
         <tbody>
           {Object.keys(row)
-            .filter(showKey)
+            .filter((key) => showKey(key, showINS2))
             .map((key) => (
               <tr key={key}>
-                <td className="p-2 font-bold self-end border">{key}</td>
+                <td className="p-2 font-bold self-end border">
+                  {key.replace("INS1", row["Instrumento"])}
+                </td>
                 <td className="p-2 border">{row[key]}</td>
               </tr>
             ))}
+          <tr>
+            <td colSpan={2} className="font-bold">
+              Observaciones
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={2}>{row["Observaciones"]}</td>
+          </tr>
         </tbody>
       </table>
     </main>
