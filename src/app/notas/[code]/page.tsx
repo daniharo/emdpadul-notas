@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function showKey(key: string, showINS2: boolean) {
   if (key.startsWith("INS2") && !showINS2) return false;
-  if (["password", "Observaciones"].includes(key)) return false;
+  if (["password", "Observaciones", "Boletín"].includes(key)) return false;
   return !key.includes("TRI");
 }
 
@@ -11,7 +11,7 @@ export default async function Notas({ params }: { params: { code: string } }) {
   const code = params.code;
 
   const csv = await fetch(process.env.CSV_URL as string, {
-    next: { revalidate: 3600 },
+    next: { revalidate: 3600, tags: ["csv_notas"] },
   });
   const data = await csv.text();
   const parsed = parse(data, { header: true });
