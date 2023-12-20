@@ -11,7 +11,7 @@ export default async function Notas({ params }: { params: { code: string } }) {
   const code = params.code;
 
   const csv = await fetch(process.env.CSV_URL as string, {
-    next: { revalidate: 3600, tags: ["csv_notas"] },
+    next: { revalidate: 3600 },
   });
   const data = await csv.text();
   const parsed = parse(data, { header: true });

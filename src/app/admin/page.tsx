@@ -1,9 +1,9 @@
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export default function Admin() {
   async function revalidateCSV() {
     "use server";
-    revalidateTag("csv_notas");
+    revalidatePath("/notas/[code]", "page");
   }
   return (
     <main className="flex-col flex w-full items-center mt-8 gap-4">
