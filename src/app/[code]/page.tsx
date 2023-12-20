@@ -39,7 +39,7 @@ export default async function Notas({ params }: { params: { code: string } }) {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between max-w-lg mx-4 mt-10 mb-4 m-auto">
+    <main className="flex flex-col items-center justify-between max-w-lg mx-auto px-4 mt-10 mb-4 m-auto">
       <table className="border">
         <tbody>
           {Object.keys(row)
