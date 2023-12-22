@@ -29,7 +29,12 @@ export default async function Notas({ params }: { params: { code: string } }) {
     );
   }
 
-  const keyBlacklist = ["password", "Observaciones", "Boletín"];
+  const keyBlacklist = [
+    "password",
+    "Observaciones",
+    "Boletín",
+    "Enviar boletín",
+  ];
 
   const instruments = row["Instrumento"].split("/");
   const ins1 = instruments[0];
