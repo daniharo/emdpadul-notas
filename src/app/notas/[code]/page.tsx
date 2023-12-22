@@ -1,15 +1,24 @@
 import { parse } from "papaparse";
 import Link from "next/link";
 import { BottomActions } from "@/app/notas/[code]/BottomActions";
+import { unstable_cache } from "next/cache";
+
+const getCachedParsedCSV = unstable_cache(
+  async () => {
+    const csv = await fetch(process.env.CSV_URL as string, {
+      next: { revalidate: 0 },
+    });
+    const data = await csv.text();
+    return parse(data, { header: true });
+  },
+  ["csv_notas"],
+  { revalidate: 3600 },
+);
 
 export default async function Notas({ params }: { params: { code: string } }) {
   const code = params.code;
 
-  const csv = await fetch(process.env.CSV_URL as string, {
-    next: { revalidate: 3600 },
-  });
-  const data = await csv.text();
-  const parsed = parse(data, { header: true });
+  const parsed = await getCachedParsedCSV();
 
   const row = parsed.data.find((row: any) => row["password"] === code) as {
     [key: string]: string;
