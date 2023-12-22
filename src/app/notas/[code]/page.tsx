@@ -1,5 +1,6 @@
 import { parse } from "papaparse";
 import Link from "next/link";
+import { BottomActions } from "@/app/notas/[code]/BottomActions";
 
 export default async function Notas({ params }: { params: { code: string } }) {
   const code = params.code;
@@ -35,8 +36,10 @@ export default async function Notas({ params }: { params: { code: string } }) {
   const ins2 = instruments[1];
 
   return (
-    <main className="flex flex-col items-center justify-between max-w-lg mx-auto px-4 mt-10 mb-8 m-auto">
-      <table className="border">
+    <main className="flex flex-col items-center justify-between max-w-lg mx-auto px-4 pt-10 pb-8 m-auto">
+      <h1 className="font-bold">Escuela de Música y Danza de Padul</h1>
+      <h2>Curso 2023/2024 - Primer Trimestre</h2>
+      <table className="border mt-4">
         <tbody>
           {Object.keys(row)
             .filter((key) => !keyBlacklist.includes(key) && !!row[key])
@@ -66,6 +69,7 @@ export default async function Notas({ params }: { params: { code: string } }) {
           )}
         </tbody>
       </table>
+      <BottomActions name={`${row["Nombre"]} ${row["Apellidos"]}`} />
     </main>
   );
 }
