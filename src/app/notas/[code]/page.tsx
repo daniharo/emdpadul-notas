@@ -1,13 +1,6 @@
 import { parse } from "papaparse";
 import Link from "next/link";
 
-function showKey(key: string, blacklist: string[]) {
-  if (blacklist.some((blacklistKey) => key.startsWith(blacklistKey)))
-    return false;
-  if (["password", "Observaciones", "Boletín"].includes(key)) return false;
-  return !key.includes("TRI");
-}
-
 export default async function Notas({ params }: { params: { code: string } }) {
   const code = params.code;
 
@@ -35,27 +28,18 @@ export default async function Notas({ params }: { params: { code: string } }) {
     );
   }
 
-  const keyBlacklist: string[] = [];
+  const keyBlacklist = ["password", "Observaciones", "Boletín"];
 
   const instruments = row["Instrumento"].split("/");
   const ins1 = instruments[0];
   const ins2 = instruments[1];
-
-  const showINS1 = Object.keys(row).some(
-    (key) => key.startsWith("INS1") && row[key],
-  );
-  if (!showINS1) keyBlacklist.push("INS1");
-  const showINS2 = Object.keys(row).some(
-    (key) => key.startsWith("INS2") && row[key],
-  );
-  if (!showINS2) keyBlacklist.push("INS2");
 
   return (
     <main className="flex flex-col items-center justify-between max-w-lg mx-auto px-4 mt-10 mb-8 m-auto">
       <table className="border">
         <tbody>
           {Object.keys(row)
-            .filter((key) => showKey(key, keyBlacklist))
+            .filter((key) => !keyBlacklist.includes(key) && !!row[key])
             .map((key) => (
               <tr key={key}>
                 <td className="p-2 font-bold self-end border">
@@ -66,14 +50,20 @@ export default async function Notas({ params }: { params: { code: string } }) {
                 <td className="p-2 border">{row[key]}</td>
               </tr>
             ))}
-          <tr>
-            <td colSpan={2} className="font-bold">
-              Observaciones
-            </td>
-          </tr>
-          <tr>
-            <td colSpan={2}>{row["Observaciones"]}</td>
-          </tr>
+          {row["Observaciones"] && (
+            <>
+              <tr>
+                <td colSpan={2} className="px-2 pt-2 pb-1 font-bold">
+                  Observaciones
+                </td>
+              </tr>
+              <tr>
+                <td colSpan={2} className="px-2 pb-2 pt-1">
+                  {row["Observaciones"]}
+                </td>
+              </tr>
+            </>
+          )}
         </tbody>
       </table>
     </main>
