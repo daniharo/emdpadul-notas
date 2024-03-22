@@ -17,7 +17,7 @@ export const BottomActions = ({ name }: { name: string }) => {
             },
           );
           const link = document.createElement("a");
-          link.download = `EMDPadul 23-24 - Boletin Primer Trimestre ${name}.png`;
+          link.download = `EMDPadul 23-24 - Boletin Segundo Trimestre ${name}.png`;
           link.href = canvas.toDataURL("image/png");
           link.click();
         }}
