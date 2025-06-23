@@ -52,7 +52,7 @@ export default async function Notas({ params }: { params: { code: string } }) {
   return (
     <main className="flex flex-col items-center justify-between max-w-lg mx-auto px-4 pt-10 pb-8 m-auto">
       <h1 className="font-bold">Escuela de Música y Danza de Padul</h1>
-      <h2>Curso 2024/2025 - Segundo Trimestre</h2>
+      <h2>Curso 2024/2025 - Tercer Trimestre</h2>
       <table className="border mt-4">
         <tbody>
           {Object.keys(row)
